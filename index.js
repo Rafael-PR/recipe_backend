@@ -1,12 +1,16 @@
 require('dotenv').config();
 const express = require('express');
 const { Pool } = require('pg');
-const recipesRouter = require('./routes/recipeRouter');
 const app = express();
+
+const cors = require('cors');
+app.use(cors());
+
 
 const pool = new Pool();
 
 app.use(express.json());
+
 
 const recipeRouter = require('./routes/recipeRouter');
 app.use('/api/recipes', recipeRouter);
