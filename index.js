@@ -1,28 +1,17 @@
-// ----- set env vatiable---- 
 require('dotenv').config();
-
-// -----express----
 const express = require('express');
+const cors = require('cors');
+const recipeRouter = require('./src/routes/recipeRouter');
+
 const app = express();
 
-// -----Postgres connection-----
-const { Pool } = require('pg');
-const pool = new Pool();
-
-// -----cors----
-const cors = require('cors');
+// -----Aplication level middlewares----
 app.use(cors());
-
-// ----Bodyparser-----
 app.use(express.json());
-
-// ----- import router-----
-const recipeRouter = require('./routes/recipeRouter');
-
-// -----static assest-----
 app.use(express.static(__dirname + '/public'));
 
-// -----routes-----
+
+// ---- routers----
 app.use('/api/recipes', recipeRouter);
 app.get('/',(req,res)=>{
     res.send('Welcome to recipe Blog backend !')
